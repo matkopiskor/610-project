@@ -1,0 +1,51 @@
+@import 'antd/lib/style/themes/default.less';
+@import 'antd/dist/antd.less';
+@import './theme.less';
+@import './variables.less';
+
+// reset
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    // &::before {
+    //     content: '';
+    //     position: absolute;
+    //     height: 100%;
+    //     width: 100%;
+    //     // background-image: url(/src/assets/images/app-background.jpg);
+    //     background-position: center;
+    //     background-repeat: no-repeat;
+    //     background-size: cover;
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     z-index: -1;
+    // }
+
+    // &::after {
+    //     content: '';
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     background-image: linear-gradient(90deg, red, coral);
+    //     opacity: 0.7;
+    // }
+    background-image: linear-gradient(90deg, red, coral);
+}
+
+#app {
+    position: relative;
+    max-width: @appMaxWidth;
+    width: 100%;
+    position: relative;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    padding: 0 2rem;
+}
