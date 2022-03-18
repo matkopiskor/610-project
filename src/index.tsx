@@ -1,5 +1,10 @@
 import ReactDOM from 'react-dom';
 import { App } from './App';
+import ReviewContextProvider from './context/ReviewContext';
 
-const app = document.getElementById('app');
-ReactDOM.render(<App />, app);
+ReactDOM.render(
+    <ReviewContextProvider>
+        <App />
+    </ReviewContextProvider>,
+    document.getElementById('root')
+);

@@ -1,5 +1,5 @@
 export interface IReview {
-    id: string;
+    id?: string;
     thumbsUp: number;
     app: string;
     date_Time: string;
@@ -7,4 +7,9 @@ export interface IReview {
     rating: number;
     review: string;
     num: number;
+}
+
+export interface IReviewsResponse {
+    review: IReview[];
+    totalSize: number;
 }

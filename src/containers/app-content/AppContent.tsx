@@ -1,32 +1,54 @@
-import { Col, Row } from 'antd';
-import { FC, useCallback, useEffect, useState } from 'react';
-import { getAllReviews } from '../../api/reviews';
+import { Button, Col, Input, Pagination, Row } from 'antd';
+import { ChangeEvent, FC, useState } from 'react';
 import { Review } from '../../components';
-import { IReview } from '../../models/Review';
+import { useReviewContext } from '../../context/ReviewContext';
 import './AppContent.less';
 
 const AppContent: FC = () => {
-    const [page, setPage] = useState<number>(0);
-    const [size, setSize] = useState<number>(5);
-    const [data, setData] = useState<IReview[]>([]);
-
-    const fetchData = useCallback(async () => {
-        const resp = await getAllReviews(page, size);
-        setData(resp);
-    }, []);
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+    const { data, total, size, page, updateFilter, changePage, setDataSize } = useReviewContext();
+    const [localFilter, setLocalFilter] = useState<string>('');
 
     return (
         <div className="app-content">
-            <Row>
-                {data.map((item) => (
-                    <Col span={24}>
-                        <Review key={item.id} item={item} />
-                    </Col>
-                ))}
+            <Row gutter={[0, 20]}>
+                <Col span={24}>
+                    <div className="flex">
+                        <Input
+                            value={localFilter}
+                            onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                                setLocalFilter(e.target.value);
+                            }}
+                            className="filter"
+                        />
+                        <Button
+                            onClick={() => {
+                                updateFilter(localFilter);
+                            }}
+                        >
+                            Filter by review
+                        </Button>
+                    </div>
+                </Col>
+                <Col span={24}>
+                    <div className="flex">
+                        <Pagination
+                            onChange={changePage}
+                            onShowSizeChange={(_, value: number) => setDataSize(value)}
+                            current={page}
+                            pageSize={size}
+                            total={total}
+                        />
+                    </div>
+                </Col>
+                <Col span={24}>
+                    <Row gutter={[20, 20]}>
+                        {data.map((item) => (
+                            <Col key={item.id} span={24}>
+                                <Review item={item} />
+                            </Col>
+                        ))}
+                    </Row>
+                </Col>
             </Row>
         </div>
     );
